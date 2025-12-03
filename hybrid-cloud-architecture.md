@@ -316,7 +316,7 @@ Configured features:
 - The Outbound Security Rules are as follows:
   - “Allow_WebServer_HTTPS_Out”: Allows Client Management to send SSH requests to the Web Server, but only internal resources can initiate this connection.
 
-![NSGclient](./Screenshot/immagine9.png)
+![NSGclient](./Screenshot/nsg2.png)
 
 **_Management Client NSG_**
 
@@ -330,24 +330,78 @@ Configured features:
 - The Outbound Security Rule is as follows:
   - “Deny_Internet_Out”: Blocks all outbound traffic to the Internet.
 
-  
+![NSGWebS](./Screenshot/nsg1.png)
+
+**_Private Web Server NSG_**
+
 ---
 
 # Incident Response & Security Measures
 
-### **On‑Prem**
+## 1. Identification
 
-* IDS/IPS
-* HTTPS enforcement
-* SSH hardening
-* Firewall rules limiting traffic
+Monitor logs and alerts to detect suspicious activity:
 
-### **Cloud**
+### On-Prem
+- **OPNsense:** IDS/IPS alerts, blocked IPs, unusual firewall activity  
+- **DMZ Web Server:** high request rate, 4xx/5xx errors, failed logins, suspicious Apache logs  
+- **Active Directory:** repeated failed logins, unauthorized group changes  
 
-* NSG micro‑segmentation
-* MFA for admin access
-* AD Sync monitoring
-* Backup and Recovery strategy
+### Azure
+- **NSG:** blocked inbound/outbound traffic  
+- **Entra ID:** suspicious sign-ins, password spray attempts  
+- **Cloud VMs:** unusual outbound connections  
+
+
+## 2. Containment
+
+Short-term:
+- Block malicious IPs on OPNsense  
+- Disable compromised AD or Azure users  
+- Isolate affected VM (LAN/DMZ/Azure subnet)  
+- Temporarily stop affected services
+
+Long-term:
+- Patch vulnerable systems  
+- Reset credentials  
+- Review and correct firewall/NSG rules  
+
+
+## 3. Eradication
+
+- Remove malicious files or code  
+- Clean or reinstall compromised services  
+- Update IDS/IPS rules and firewall policies  
+- Reset AD accounts and verify GPO integrity  
+- Review Azure activity logs for unauthorized actions  
+
+
+## 4. Recovery
+
+- Restore VMs from Proxmox snapshots (if needed)  
+- Re-enable network rules gradually  
+- Verify AD replication and Entra ID sync  
+- Test service functionality  
+- Continue monitoring for 24–72 hours  
+
+
+## 5. Lessons Learned
+
+- Document what happened, how it was detected, and response time  
+- Improve firewall/NSG policies  
+- Strengthen GPO hardening  
+- Adjust IDS/IPS rules  
+- Update documentation and team procedures  
+
+
+## Common Incident Examples
+
+| Incident Type | Action |
+|---------------|--------|
+| Web DoS attempt | Block IP on OPNsense, check mod_evasive logs |
+| SSH brute force | Disable SSH, block IP, review auth logs |
+| AD login abuse | Disable user, reset passwords, check audit logs |
+| Suspicious Azure activity | Isolate VM, review NSG logs, rotate keys |
 
 ---
 
