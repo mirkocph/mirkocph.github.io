@@ -4,7 +4,7 @@ layout: default
 
 Text can be **bold**, _italic_, ~~strikethrough~~ or `keyword`.
 
-[Link to another page](./hybrid-cloud-architecture.md).
+[Hybrid Cloud Architecture](./hybrid-cloud-architecture.md).
 
 There should be whitespace between paragraphs.
 
