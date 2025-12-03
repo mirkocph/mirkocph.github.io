@@ -273,19 +273,16 @@ Computer Configuration → Administrative Templates → Windows Components → M
 
 ### **Infrastructure Includes**
 
-* **Cloud Domain Controller** (replica of on‑prem)
-* **Entra ID Connect Server**
 * **Management Client VM**
-* **Resource Group + VNET + 3 Subnets:**
+* **Resource Group + VNET + 2 Subnets:**
 
   * 10.0.0.0/24 → Management
-  * 10.0.1.0/24 → Entra ID Sync
-  * 10.0.2.0/24 → Cloud DC
+  * 10.0.1.0/24 → Private Web Server
+  
+ 
 
 ### **Networking**
 
-* VPN or S2S connectivity from OPNsense to Azure
-* Routing for AD replication
 * Private addressing only
 * No public exposure except management VM
 
@@ -308,15 +305,32 @@ Configured features:
 
 # Network Security Groups (NSG)
 
-Rules implemented:
+## Management Client
 
-1. Communication only between AD and Entra ID sync server
-2. Management Client → RDP to Entra ID server **allowed**
-3. Management Client → RDP to AD **blocked**
-4. Only Management Client has a public IP
-5. No inbound Internet access to cloud servers
-6. Segmented East‑West traffic between subnets
+- The Inbound Security Rules are as follows:
+  - “Allow_WebServer_HTTPS”: Only resources on the same Azure network can communicate, thus allowing Client Management to receive HTTPS responses from the Web Server on port 8443.
+  - “Allow_Internal”: Allows all internal traffic between resources in the VNET.
+  - “Allow_RDP_Public”: Allows Remote Desktop (RDP) access to 
+  Client Management only from a specific public IP address.
 
+- The Outbound Security Rules are as follows:
+  - “Allow_WebServer_HTTPS_Out”: Allows Client Management to send SSH requests to the Web Server, but only internal resources can initiate this connection.
+
+![NSGclient](./Screenshot/immagine9.png)
+
+**_Management Client NSG_**
+
+## Private Web Server
+
+- The Inbound Security Rules are as follows:
+  - “Deny_Internet”: Blocks all TCP traffic from the Internet to any destination, thus denying direct access from the Internet.
+  - “Allow_ClientMgmt_HTTPS”: Allows HTTP traffic from the VNET.
+  - “Deny_RDP”: Blocks RDP connections from any source, thus preventing remote desktop access.
+  - “Allow_AccessCM”: Allows SSH connections from a specific IP.
+- The Outbound Security Rule is as follows:
+  - “Deny_Internet_Out”: Blocks all outbound traffic to the Internet.
+
+  
 ---
 
 # Incident Response & Security Measures
