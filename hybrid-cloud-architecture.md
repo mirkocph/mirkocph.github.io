@@ -1,4 +1,4 @@
-# FireGlass Hybrid Cloud Infrastructure Project
+# Hybrid Cloud Infrastructure Project
 
 ## Overview
 
@@ -28,8 +28,6 @@ The solution includes:
 6. [Hybrid Identity & Entra ID Connect](#hybrid-identity--entra-id-connect)
 7. [Network Security Groups (NSG)](#network-security-groups-nsg)
 8. [Incident Response & Security Measures](#incident-response--security-measures)
-9. [Implementation Images](#implementation-images)
-10. [Team](#team)
 
 ---
 
