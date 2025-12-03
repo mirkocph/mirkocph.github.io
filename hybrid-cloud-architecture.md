@@ -7,7 +7,7 @@ This project documents the complete design and deployment of a **hybrid on‑pre
 The solution includes:
 
 * On‑premises virtualization with **Proxmox VE**
-* Firewall, VPN, IDS/IPS using **OPNsense**
+* Firewall, Tunneling, IDS/IPS using **OPNsense**
 * Local **Active Directory Domain Services**
 * DMZ web server with HTTPS and security hardening
 * Azure infrastructure with Private Web Server, Entra ID Connect, NSGs, VNETs
@@ -37,16 +37,25 @@ The solution includes:
 
 * Migrate FireGlass infrastructure toward a hybrid cloud approach.
 * Deploy a modern, secure, scalable environment.
-* Implement an **on‑prem AD** and extend it to Azure with a **secondary cloud DC**.
+* Implement an **on‑prem AD** with GPOs.
 * Deploy an **Entra ID Connect** server for identity synchronization.
 * Create a segmented architecture (LAN, DMZ, cloud subnets).
-* Implement firewalling, IDS/IPS, VPN, and NSG policies.
+* Implement firewalling, IDS/IPS, Tunneling, and NSG policies.
 
 ---
 
 # On‑Premise Architecture
 
+### **Network infrastructure**
+
+Devices:
+
+* Mikrotik Router (connected to the switch in trunk mode)
+* Netgear Switch (VLAN 503 on the interface connected to the server, untagged)
+* On-premise Server (16 core, 64 GB RAM, 1 TB Disk)
+
 ### **Platform: Proxmox VE**
+
 
 Used to virtualize:
 
@@ -190,12 +199,9 @@ Below are images extracted from the original project documentation.
 
 ### **Example:**
 
-```
-![Proxmox Overview](images/word/media/image1.png)
-![Firewall Rules](images/word/media/image2.png)
-![AD Structure](images/word/media/image3.png)
-...
-```
+
+![Proxmox Overview](./Screenshot/1.png)
+
 
 *(Replace image names with actual filenames from /images/word/media)*
 
