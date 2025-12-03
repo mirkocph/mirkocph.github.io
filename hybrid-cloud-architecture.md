@@ -74,7 +74,9 @@ Network Sgmentation:
 
 OPNsense Firewall 25.7
 
-Windows Server 2022
+Windows Server 2022 (ADDS)
+
+Windows Server 2022 (ADsync Service)
 
 Ubuntu Web Server 25.10
 
@@ -128,11 +130,30 @@ Configured with:
 ### **DMZ Web Server**
 
 * Ubuntu Server with Apache2
+* Web Page
+
+![WP](./Screenshot/102.png)
+
+**_Web Page (index.html)_**
+
 * HTTPS enforced (certbot + Let’s Encrypt)
-* DoS protection: mod_evasive
-* Access logging with geolocation
+* DoS protection: mod_evasive Library
+```bash
+sudo apt install libapache2-mod-evasive
+sudo a2enmod active
+sudo systemctl restart apache2
+sudo nano /etc/apache2/mods-available/evasive.conf
+```
+![IP](./Screenshot/92.png)
 
+**_20+ requests in a second from an IP = BLOCKED 10s_**
 
+* Access logging with geolocation (GeoIP)
+
+![IP](./Screenshot/105.png)
+![DMZ](./Screenshot/106.png)
+
+**_Geolocation page_**
 
 
 ---
@@ -152,11 +173,99 @@ Deployed with:
 * 4 Security Groups (one per OU)
 * 16 Users (4 per OU)
 
+![DMZ](./Screenshot/11.png)
+
+**_Active Directory Structure_**
+
+
 ### **Hardening Measures**
 
 * Password policies
 * Account lockout
 * GPO baseline
+### Security Hardening Steps (GPO Configuration)
+
+#### 1. AutoRun Disabled
+AutoRun has been disabled to prevent the automatic execution of programs when a USB drive is inserted.
+
+**GPO Path:**
+Computer Configuration → Administrative Templates → Windows Components → AutoPlay Policies
+
+**Settings:**
+- **Turn off AutoPlay** = Enabled (All drives)
+- **Turn off Autoplay for non-volume devices** = Enabled
+- **Do not execute autorun commands** = Enabled
+
+
+#### 2. Administrator Account Disabled and Renamed
+The default Administrator account was disabled and the real admin account was renamed to avoid easy identification.
+
+**GPO Path:**
+Computer Configuration → Windows Settings → Security Settings → Local Policies → Security Options
+
+
+**Settings:**
+- **Accounts: Administrator account status** → Disabled
+- **Accounts: Rename administrator account** → Enabled
+
+
+#### 3. Automatic Session Lock After 10 Minutes
+The session locks automatically after 10 minutes of inactivity.
+
+**GPO Path:**
+
+User Configuration → Administrative Templates → Control Panel → Personalization → Screen saver timeout
+
+
+**Settings:**
+- **Timeout:** 600 seconds (10 minutes)
+- **Password protect the screen saver:** Enabled
+
+#### 4. Control Panel and Software Installation Disabled
+Access to the Control Panel and the ability to install software were disabled.
+
+**GPO Paths:**
+
+User Configuration → Administrative Templates → Control Panel → Prohibit access to Control Panel
+
+User Configuration → Administrative Templates → Windows Components → Windows Installer → Disable Windows Installer = Always
+
+
+#### 5. PowerShell and CMD Disabled for Non-Admin Users
+Command-line access was restricted for non-administrator users.
+
+**GPO Path:**
+
+User Configuration → Administrative Templates → System → Prevent access to command prompt = Enabled
+
+#### 6. Task Manager Disabled
+Task Manager access was blocked for standard users.
+
+**GPO Path:**
+
+User Configuration → Administrative Templates → System → Ctrl+Alt+Del Options → Remove Task Manager = Enabled
+
+#### 7. IPv6 Disabled
+IPv6 was disabled because it is not used in this environment.
+
+**Path:**
+Network Adapter → Properties → Uncheck: Internet Protocol Version 6 (IPv6)
+
+#### 8. Windows Defender Enabled
+Windows Defender protections were fully enabled.
+
+**GPO Path:**
+
+Computer Configuration → Administrative Templates → Windows Components → Microsoft Defender Antivirus
+
+
+**Settings:**
+- **Turn on real-time protection** = Enabled
+- **Turn on behavior monitoring** = Enabled
+- **Cloud-delivered protection** = Enabled
+- **Scan removable drives** = Enabled
+- **Check for definition updates** = Every 4 hours
+
 
 ---
 
@@ -189,7 +298,6 @@ Configured features:
 * Password Hash Sync
 * Password Writeback
 * Hybrid Users synchronization
-* Verification of replication between on‑prem and cloud DC
 
 ### **Azure Access Control**
 
@@ -229,21 +337,6 @@ Rules implemented:
 
 ---
 
-# Implementation Images
-
-Below are images extracted from the original project documentation.
-(Ensure you upload the `/images` folder to your GitHub repo.)
-
-### **Example:**
-
-
-![Proxmox Overview](./Screenshot/1.png)
-
-
-*(Replace image names with actual filenames from /images/word/media)*
-
----
-
-# 🏁 Conclusion
+# Conclusion
 
 This project successfully delivers a secure and scalable **hybrid cloud infrastructure** for FireGlass, integrating Azure services with on‑prem identity, implementing modern security controls, and providing a foundation ready for future expansion.
