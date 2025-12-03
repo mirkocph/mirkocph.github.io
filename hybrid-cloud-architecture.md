@@ -1,6 +1,6 @@
 # FireGlass Hybrid Cloud Infrastructure Project
 
-## 📌 Overview
+## Overview
 
 This project documents the complete design and deployment of a **hybrid on‑premises + Azure cloud infrastructure** for the company **FireGlass**, transitioning from a fully local environment to a scalable, secure, and cloud‑integrated architecture.
 
@@ -18,7 +18,7 @@ All content is based on the complete technical implementation developed for the 
 
 ---
 
-# 📖 Index
+# Index
 
 1. [Project Goals](#project-goals)
 2. [On‑Premise Architecture](#on-premise-architecture)
@@ -33,7 +33,7 @@ All content is based on the complete technical implementation developed for the 
 
 ---
 
-# 🎯 Project Goals
+# Project Goals
 
 * Migrate FireGlass infrastructure toward a hybrid cloud approach.
 * Deploy a modern, secure, scalable environment.
@@ -44,7 +44,7 @@ All content is based on the complete technical implementation developed for the 
 
 ---
 
-# 🏠 On‑Premise Architecture
+# On‑Premise Architecture
 
 ### **Platform: Proxmox VE**
 
@@ -69,7 +69,7 @@ Used to virtualize:
 
 ---
 
-# 🔥 Firewall & DMZ Design
+# Firewall & DMZ Design
 
 ### **Firewall: OPNsense**
 
@@ -91,7 +91,7 @@ Configured with:
 
 ---
 
-# 🧩 Active Directory Structure
+# Active Directory Structure
 
 ### **On‑Prem AD Server**
 
@@ -114,7 +114,7 @@ Deployed with:
 
 ---
 
-# ☁ Azure Cloud Architecture
+# Azure Cloud Architecture
 
 ### **Infrastructure Includes**
 
@@ -136,7 +136,7 @@ Deployed with:
 
 ---
 
-# 🔗 Hybrid Identity & Entra ID Connect
+# Hybrid Identity & Entra ID Connect
 
 Configured features:
 
@@ -152,7 +152,7 @@ Configured features:
 
 ---
 
-# 🛡 Network Security Groups (NSG)
+# Network Security Groups (NSG)
 
 Rules implemented:
 
@@ -165,7 +165,7 @@ Rules implemented:
 
 ---
 
-# 🚨 Incident Response & Security Measures
+# Incident Response & Security Measures
 
 ### **On‑Prem**
 
@@ -183,7 +183,7 @@ Rules implemented:
 
 ---
 
-# 🖼 Implementation Images
+# Implementation Images
 
 Below are images extracted from the original project documentation.
 (Ensure you upload the `/images` folder to your GitHub repo.)
@@ -198,17 +198,6 @@ Below are images extracted from the original project documentation.
 ```
 
 *(Replace image names with actual filenames from /images/word/media)*
-
----
-
-# 👥 Team
-
-**Group 3 – ITS INCOM 2024–2026**
-
-* Mirko Anzaldi
-* Mirko Crasan
-* Simone Mazzarella
-* Martina Vicari
 
 ---
 
