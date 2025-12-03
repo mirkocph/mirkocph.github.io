@@ -10,11 +10,11 @@ The solution includes:
 * Firewall, VPN, IDS/IPS using **OPNsense**
 * Local **Active Directory Domain Services**
 * DMZ web server with HTTPS and security hardening
-* Azure infrastructure with Domain Controller, Entra ID Connect, NSGs, VNETs
+* Azure infrastructure with Private Web Server, Entra ID Connect, NSGs, VNETs
 * Secure hybrid identity synchronization
 * Management client and subnet segmentation
 
-All content is based on the complete technical implementation developed for the ITS INCOM project.
+
 
 ---
 
