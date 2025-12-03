@@ -45,7 +45,7 @@ My goal is to build a career in networking, system administration, and cybersecu
 </div>
 
 ## Certifications
-[Provide certifications that you have obtained. Use ChatGPT to help create the link - Remove this afterwards]]
+
 <div>
 <img src="https://img.shields.io/badge/-CCNA-009DAA?&style=for-the-badge&logo=Cisco&logoColor=white" />
 </div>
