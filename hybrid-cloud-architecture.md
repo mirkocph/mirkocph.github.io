@@ -53,21 +53,37 @@ Devices:
 * Mikrotik Router (connected to the switch in trunk mode)
 * Netgear Switch (VLAN 503 on the interface connected to the server, untagged)
 * On-premise Server (16 core, 64 GB RAM, 1 TB Disk)
+* Ras Server (to access our web server from the internet)
+
+![Network Overview](./Screenshot/rete.png)
+**_Network Design_**
 
 ### **Platform: Proxmox VE**
 
+Network Sgmentation:
 
-Used to virtualize:
+* vmbr0 (Management) = 10.10.22.0 /24
+* vmbr1 (WAN) = 172.16.23.0 /24 (already set up in the switch)
+* vmbr2 (LAN) = 192.168.1.0/ 24
+* vmbr3 (DMZ) = 192.168.10.0 /24 
 
-* Windows Server (ADDS)
-* Ubuntu Web Server
-* OPNsense Firewall
+ ![Proxmox Overview](./Screenshot/14.png)
+**_Proxmox Network Segmentation_**
+
+### **Used to virtualize**
+
+OPNsense Firewall 25.7
+
+Windows Server 2022
+
+Ubuntu Web Server 25.10
+
 
 ### **Network Segmentation**
 
 * **LAN:** Internal AD environment
 * **DMZ:** Public‑facing web server
-* **WAN:** External traffic
+* **WAN:** External traffic / PPTP Tunnel
 
 ### **Key Features**
 
@@ -84,11 +100,30 @@ Used to virtualize:
 
 Configured with:
 
-* WAN/LAN/DMZ separation
-* Port forwarding for the public web server
-* IPS/IDS using curated rulesets
-* VPN tunnel for Azure AD replication
-* Geo‑IP analysis for traffic
+- IPS/IDS using curated rulesets (with Suricata)
+- WAN/LAN/DMZ separation
+- Geo‑IP analysis for traffic (with GeoIP)
+- Port forwarding for the public web server
+
+![PF](./Screenshot/87.png)
+
+**_Port Forward_**
+
+- Firewall rules
+
+![PPTP](./Screenshot/84.png)
+
+**_PPTP Rules (SSH activated just for testing purpose)_**
+
+![LAN](./Screenshot/85.png)
+
+**_LAN Rules_**
+
+![DMZ](./Screenshot/86.png)
+
+**_DMZ Rules (cannot reach LAN)_**
+
+
 
 ### **DMZ Web Server**
 
@@ -96,7 +131,9 @@ Configured with:
 * HTTPS enforced (certbot + Let’s Encrypt)
 * DoS protection: mod_evasive
 * Access logging with geolocation
-* Firewall rules restricting access to backend systems
+
+
+
 
 ---
 
