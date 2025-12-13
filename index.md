@@ -6,7 +6,7 @@ layout: default
 # Hello, I'm Mirko
 <a href="https://linkedin.com/in/mirkocrasan"><img src="https://img.shields.io/badge/-LinkedIn-0072b1?&style=for-the-badge&logo=linkedin&logoColor=white" /></a>
 
-I am a Cloud & Cybersecurity graduate with hands-on experience in networking, system administration, and IT operations.
+I am a Cloud & Cybersecurity student with hands-on experience in networking, system administration, and IT operations.
 
 ## Objective
 My goal is to build a career in networking, system administration, and cybersecurity, contributing to secure, stable, and scalable infrastructures.
