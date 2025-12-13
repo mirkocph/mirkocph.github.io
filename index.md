@@ -16,11 +16,11 @@ My goal is to build a career in networking, system administration, and cybersecu
 | Skill                                         | Associated Project         |
 |-----------------------------------------------|----------------------------|
 |On-premise + Cloud Infrastructure Setup        |[Hybrid Cloud Architecture](https://github.com/mirkocph/Hybrid-Cloud-Infrastructure-Project/tree/main)|
-|  | |
-|       | |
-|     | |
-|                 | |
-|  | |
+|Reverse Shell on Windows Machine               |[CAPTCHA-Reverse-Shell](https://github.com/mirkocph/CAPTCHA-Reverse-Shell)|
+|                                               | |
+|                                               | |
+|                                               | |
+|                                               | |
 
 ## Tools
 
