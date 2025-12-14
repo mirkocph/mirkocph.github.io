@@ -52,3 +52,4 @@ My goal is to build a career in networking, system administration, and cybersecu
 
 ## Projects
 - Hybrid Cloud Architecture
+- Social Engineering + Web Exploitation
