@@ -44,16 +44,17 @@
         .sidebar h1 {
             font-size: 3.5rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem; /* spazio sotto h1 */
+            line-height: 1.1;  
         }
 
         .sidebar h2 {
             font-family: 'JetBrains Mono', monospace;
-            font-weight: 400;
-            font-size: 1.875rem;
             font-weight: 600;
-            color: #64748b;
-            margin-bottom: 0.25rem;
+            font-size: 1.875rem;
+            margin-top: 0;          /* elimina margine sopra h2 */
+            margin-bottom: 0.25rem; /* distanza minima dal prossimo elemento */
+            line-height: 1.1; 
         }
 
         .sidebar-nav {
@@ -269,7 +270,7 @@
         <aside class="sidebar">
             <div>
                 <h1>Mirko Crasan</h1>
-                <h2>Cloud & Cybersecurity Student</h2>
+                <h2 style="color: #64748B;"></h2style>Cloud & Cybersecurity Student</h2>
                 <h2 style="color: #334155;">Italy</h2>
             </div>
 
