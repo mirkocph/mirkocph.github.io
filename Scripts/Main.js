@@ -546,42 +546,42 @@ RightPanel.addEventListener("scroll", SetActiveSection);
 SetActiveSection();
 
 
-// Funzione per cambiare lingua
-function switchLanguage(lang) {
-    // Salva la preferenza
-    localStorage.setItem('preferredLanguage', lang);
-    
-    // Nascondi tutti i contenuti
-    const allContent = document.querySelectorAll('[data-lang]');
-    allContent.forEach(el => el.classList.remove('active'));
-    
-    // Mostra solo il contenuto nella lingua selezionata
-    const selectedContent = document.querySelectorAll(`[data-lang="${lang}"]`);
-    selectedContent.forEach(el => el.classList.add('active'));
-    
-    // Aggiorna i pulsanti
-    const allBtns = document.querySelectorAll('.lang-btn');
-    allBtns.forEach(btn => btn.classList.remove('active'));
-    
-    const activeBtn = document.querySelector(`[data-lang-switch="${lang}"]`);
-    if (activeBtn) activeBtn.classList.add('active');
-    
-    // Aggiorna l'attributo lang del documento
-    document.documentElement.lang = lang;
-}
-
-// Carica la lingua preferita all'avvio
-window.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('preferredLanguage');
-    if (savedLang) {
-        switchLanguage(savedLang);
-    } else {
-        // Rileva la lingua del browser
-        const browserLang = navigator.language.split('-')[0];
-        if (browserLang === 'it') {
-            switchLanguage('it');
-        }
-        // Altrimenti rimane in inglese (default)
+    // Funzione per cambiare lingua
+    function switchLanguage(lang) {
+        // Salva la preferenza
+        localStorage.setItem('preferredLanguage', lang);
+        
+        // Nascondi tutti i contenuti
+        const allContent = document.querySelectorAll('[data-lang]');
+        allContent.forEach(el => el.classList.remove('active'));
+        
+        // Mostra solo il contenuto nella lingua selezionata
+        const selectedContent = document.querySelectorAll(`[data-lang="${lang}"]`);
+        selectedContent.forEach(el => el.classList.add('active'));
+        
+        // Aggiorna i pulsanti
+        const allBtns = document.querySelectorAll('.lang-btn');
+        allBtns.forEach(btn => btn.classList.remove('active'));
+        
+        const activeBtn = document.querySelector(`[data-lang-switch="${lang}"]`);
+        if (activeBtn) activeBtn.classList.add('active');
+        
+        // Aggiorna l'attributo lang del documento
+        document.documentElement.lang = lang;
     }
-});
+    
+    // Carica la lingua preferita all'avvio
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('preferredLanguage');
+        if (savedLang) {
+            switchLanguage(savedLang);
+        } else {
+            // Rileva la lingua del browser
+            const browserLang = navigator.language.split('-')[0];
+            if (browserLang === 'it') {
+                switchLanguage('it');
+            }
+            // Altrimenti rimane in inglese (default)
+        }
+    });
 

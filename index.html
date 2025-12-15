@@ -1,193 +1,161 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
 
-<head>
+    <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Mirko Crasan</title>
+        <title>Mirko Crasan</title>
 
-    <link rel="stylesheet" href="Styles/Main.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap">
+        <link rel="stylesheet" href="Styles/Main.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap">
 
-</head>
+    </head>
 
-<body>
+    <body>
 
-    <canvas id="Canvas3D"></canvas>
+        <canvas id="Canvas3D"></canvas>
+        
+        <div class="language-switcher">
+            <button class="lang-btn active" onclick="switchLanguage('en')" data-lang-switch="en">🇬🇧 EN</button>
+            <button class="lang-btn" onclick="switchLanguage('it')" data-lang-switch="it">🇮🇹 IT</button>
+        </div>
+        
+        <div id="MainDiv">
 
-    <div class="language-switcher">
-        <button class="lang-btn active" onclick="switchLanguage('en')" data-lang-switch="en">🇬🇧 EN</button>
-        <button class="lang-btn" onclick="switchLanguage('it')" data-lang-switch="it">🇮🇹 IT</button>
-    </div>
+            <div id="MouseGlow"></div>
+            <div id="MouseGlowBlur"></div>
+                
+            <div id="RightPanel">
 
-    <div id="MainDiv">
-
-        <div id="MouseGlow"></div>
-        <div id="MouseGlowBlur"></div>
-
-        <div id="RightPanel">
-
-            <div id="Section1" class="Section">
-                <!-- Duplica solo l'h2 -->
-                <h2 data-lang="en" class="active">About</h2>
-                <h2 data-lang="it">Chi Sono</h2>
-
-                <!-- Contenuto inglese -->
-                <div data-lang="en" class="active">
-                    <p>I am a Cloud & Cybersecurity student with hands-on experience in networking, system
-                        administration, and IT operations.
-                        I hold a Cisco CCNA certification and I'm currently expanding my skills in the cloud and
-                        security operations field.<br><br>
-                        During my internship, I worked on infrastructure optimization, database redesign, and workflow
-                        automation. My experience in international customer support strengthened my communication
-                        skills, problem-solving abilities, and ability to work effectively in fast paced
-                        environments.<br><br>
-                    <p>My goal is to build a career in networking, system administration, and cybersecurity,
-                        contributing to secure, stable, and scalable infrastructures.</p>
-                </div>
-
-                <!-- Contenuto italiano -->
-                <div data-lang="it">
-                    <p>Sono uno studente di Cloud & Cybersecurity con esperienza pratica in networking, amministrazione
-                        di sistemi e operazioni IT.
-                        Ho una certificazione Cisco CCNA e attualmente sto ampliando le mie competenze nel campo del
-                        cloud e delle operazioni di sicurezza.<br><br>
-                        Durante il mio tirocinio, ho lavorato sull'ottimizzazione dell'infrastruttura, riprogettazione
-                        del database e automazione del flussi di lavoro. La mia esperienza nell'assistenza clienti
-                        internazionale ha rafforzato le mie capacità comunicative, di problem solving e di lavoro
-                        efficace in ambienti dinamici.<br><br>
-                        Il mio obiettivo è costruire una carriera nel networking, nell'amministrazione di sistemi e
-                        nella cybersecurity, contribuendo a infrastrutture sicure, stabili e scalabili.</p>
-                </div>
+        <div id="Section1" class="Section">
+            <!-- Duplica solo l'h2 -->
+            <h2 data-lang="en" class="active">About</h2>
+            <h2 data-lang="it">Chi Sono</h2>
+            
+            <!-- Contenuto inglese -->
+            <div data-lang="en" class="active">
+                <p>I am a Cloud & Cybersecurity student with hands-on experience in networking, system administration, and IT operations.
+                I hold a Cisco CCNA certification and I'm currently expanding my skills in the cloud and security operations field.<br><br>
+                During my internship, I worked on infrastructure optimization, database redesign, and workflow automation. My experience in international customer support strengthened my communication skills, problem-solving abilities, and ability to work effectively in fast paced environments.<br><br>
+                <p>My goal is to build a career in networking, system administration, and cybersecurity, contributing to secure, stable, and scalable infrastructures.</p>
             </div>
-
-            <div id="Section2" class="Section">
-
-                <h2 data-lang="en" class="active">Projects</h2>
-                <h2 data-lang="it">Progetti</h2>
-
-                <p data-lang="en" class="active">Below are some of the projects I have been working on during my period
-                    as a student.</p>
-                <p data-lang="it">Di seguito alcuni dei progetti su cui ho lavorato durante il mio percorso di studi.
-                </p>
-
-                <a href="https://github.com/mirkocph/Hybrid-Cloud-Infrastructure-Project" target="_blank"
-                    class="Project">
-                    <p data-value="Hybrid Cloud Infrastructure "
-                        style="color: white; font-weight: bold; white-space: pre;">Hybrid Cloud Infrastructure </p>
-                    <p data-value="2D Lighting Framework Pygame">On‑premises + Azure cloud</p>
-                    <div class="Separator"></div>
-                    <p data-value="2025">2025</p>
-                </a>
-
-                <a href="https://github.com/mirkocph/CAPTCHA-Reverse-Shell" target="_blank" class="Project">
-                    <p data-value="WakeWord Engine " style="color: white; font-weight: bold; white-space: pre;">CAPTCHA
-                        Reverse Shell </p>
-                    <p data-value="CAPTCHA Reverse Shell">Social Engineering + Exploit</p>
-                    <div class="Separator"></div>
-                    <p data-value="2025">2025</p>
-                </a>
-
+            
+            <!-- Contenuto italiano -->
+            <div data-lang="it">
+                <p>Sono uno studente di Cloud & Cybersecurity con esperienza pratica in networking, amministrazione di sistemi e operazioni IT.
+                Ho una certificazione Cisco CCNA e attualmente sto ampliando le mie competenze nel campo del cloud e delle operazioni di sicurezza.<br><br>
+                Durante il mio tirocinio, ho lavorato sull'ottimizzazione dell'infrastruttura, riprogettazione del database e automazione del flussi di lavoro. La mia esperienza nell'assistenza clienti internazionale ha rafforzato le mie capacità comunicative, di problem solving e di lavoro efficace in ambienti dinamici.<br><br>
+                Il mio obiettivo è costruire una carriera nel networking, nell'amministrazione di sistemi e nella cybersecurity, contribuendo a infrastrutture sicure, stabili e scalabili.</p>
             </div>
+        </div>
+                
+                <div id="Section2" class="Section">
+                    
+                    <h2 data-lang="en" class="active">Projects</h2>
+                    <h2 data-lang="it">Progetti</h2>
+                    
+                    <p data-lang="en" class="active">Below are some of the projects I have been working on during my period as a student.</p>
+                    <p data-lang="it">Di seguito alcuni dei progetti su cui ho lavorato durante il mio percorso di studi.</p>
 
-            <div id="Section3" class="Section">
-                <h2 data-lang="en" class="active">Experience</h2>
-                <h2 data-lang="it">Esperienza</h2>
-                <a target="_blank" class="Project">
-                    <p data-value="Health Tech Hub Copenhagen "
-                        style="color: white; font-weight: bold; white-space: pre;">Health Tech Hub Copenhagen </p>
-                    <p data-lang="en" class="active" data-value="Workflow automation ">Workflow automation</p>
-                    <p data-lang="it" data-value="Automazione dei flussi di lavoro ">Automazione dei flussi di lavoro
+                    <a href="https://github.com/mirkocph/Hybrid-Cloud-Infrastructure-Project" target="_blank" class="Project">
+                        <p data-value="Hybrid Cloud Infrastructure " style="color: white; font-weight: bold; white-space: pre;">Hybrid Cloud Infrastructure </p>
+                        <p data-value="2D Lighting Framework Pygame">On‑premises + Azure cloud</p>
                         <div class="Separator"></div>
                         <p data-value="2025">2025</p>
-                </a>
-                <!-- Contenuto inglese -->
-                <div data-lang="en" class="active">
-                    <p>During my internship at Health Tech Hub, a small startup in Copenhagen, I redesigned and improved
-                        the company's data storage system. I worked independently in a collaborative environment,
-                        learning to manage projects with minimal supervision.</p>
+                    </a>
 
-                    <p><strong>Key points:</strong></p>
-                    <ul style="color: gray; font-size: 1.6vh; line-height: 2.5vh; padding-left: 2vh;">
-                        <li>Analyzed and redesigned the data infrastructure.</li>
-                        <li>Automated data handling using <strong>Zapier</strong>, and created databases in
-                            <strong>Airtable</strong> and <strong>HubSpot</strong>.</li>
-                        <li>Implemented a cost-effective solution using <strong>Python</strong>.</li>
-                        <li>Gained hands-on experience in cloud systems, cybersecurity, databases, and workflow
-                            automation.</li>
-                        <li>Developed problem-solving, self-management, and teamwork skills in an international
-                            environment.</li>
-                    </ul>
-
-                    <p>This internship strengthened both my technical abilities and my confidence in working with a
-                        team.</p>
+                    <a href="https://github.com/mirkocph/CAPTCHA-Reverse-Shell" target="_blank" class="Project">
+                        <p data-value="WakeWord Engine " style="color: white; font-weight: bold; white-space: pre;">CAPTCHA Reverse Shell </p>
+                        <p data-value="CAPTCHA Reverse Shell">Social Engineering + Exploit</p>
+                        <div class="Separator"></div>
+                        <p data-value="2025">2025</p>
+                    </a>
+                    
                 </div>
 
-                <!-- Contenuto italiano -->
-                <div data-lang="it">
-                    <p>Durante il mio tirocinio presso Health Tech Hub, una piccola startup a Copenaghen, ho
-                        riprogettato e migliorato il sistema di archiviazione dati dell'azienda. Ho lavorato in
-                        autonomia in un ambiente collaborativo, imparando a gestire progetti con supervisione minima.
-                    </p>
+                <div id="Section3" class="Section">
+                        <h2 data-lang="en" class="active">Experience</h2>
+                        <h2 data-lang="it">Esperienza</h2>
+                    <a target="_blank" class="Project">
+                        <p data-value="Health Tech Hub Copenhagen " style="color: white; font-weight: bold; white-space: pre;">Health Tech Hub Copenhagen </p>
+                            <p data-lang="en" class="active" data-value="Workflow automation ">Workflow automation</p>
+                            <p data-lang="it" data-value="Automazione dei flussi di lavoro ">Automazione dei flussi di lavoro
+                        <div class="Separator"></div>
+                        <p data-value="2025">2025</p>   
+                    </a>
+                    <!-- Contenuto inglese -->
+                    <div data-lang="en" class="active">
+                            <p>During my internship at Health Tech Hub, a small startup in Copenhagen, I redesigned and improved the company's data storage system. I worked independently in a collaborative environment, learning to manage projects with minimal supervision.</p>
 
-                    <p><strong>Punti chiave:</strong></p>
-                    <ul style="color: gray; font-size: 1.6vh; line-height: 2.5vh; padding-left: 2vh;">
-                        <li>Analizzato e riprogettato l'infrastruttura dati.</li>
-                        <li>Automatizzato la gestione dei dati utilizzando <strong>Zapier</strong> e creato database in
-                            <strong>Airtable</strong> e <strong>HubSpot</strong>.</li>
-                        <li>Implementato una soluzione economicamente vantaggiosa utilizzando <strong>Python</strong>.
-                        </li>
-                        <li>Acquisito esperienza pratica in sistemi cloud, cybersecurity, database e automazione dei
-                            flussi di lavoro.</li>
-                        <li>Sviluppato capacità di problem-solving, auto-gestione e lavoro di squadra in un ambiente
-                            internazionale.</li>
-                    </ul>
+                            <p><strong>Key points:</strong></p>
+                            <ul style="color: gray; font-size: 1.6vh; line-height: 2.5vh; padding-left: 2vh;">
+                                <li>Analyzed and redesigned the data infrastructure.</li>
+                                <li>Automated data handling using <strong>Zapier</strong>, and created databases in <strong>Airtable</strong> and <strong>HubSpot</strong>.</li>
+                                <li>Implemented a cost-effective solution using <strong>Python</strong>.</li>
+                                <li>Gained hands-on experience in cloud systems, cybersecurity, databases, and workflow automation.</li>
+                                <li>Developed problem-solving, self-management, and teamwork skills in an international environment.</li>
+                            </ul>
 
-                    <p>Questo tirocinio ha rafforzato sia le mie competenze tecniche che la mia fiducia nel lavorare in
-                        team.</p>
-                </div>
+                            <p>This internship strengthened both my technical abilities and my confidence in working with a team.</p>
+                        </div>
+
+                        <!-- Contenuto italiano -->
+                        <div data-lang="it">
+                            <p>Durante il mio tirocinio presso Health Tech Hub, una piccola startup a Copenaghen, ho riprogettato e migliorato il sistema di archiviazione dati dell'azienda. Ho lavorato in autonomia in un ambiente collaborativo, imparando a gestire progetti con supervisione minima.</p>
+
+                            <p><strong>Punti chiave:</strong></p>
+                            <ul style="color: gray; font-size: 1.6vh; line-height: 2.5vh; padding-left: 2vh;">
+                                <li>Analizzato e riprogettato l'infrastruttura dati.</li>
+                                <li>Automatizzato la gestione dei dati utilizzando <strong>Zapier</strong> e creato database in <strong>Airtable</strong> e <strong>HubSpot</strong>.</li>
+                                <li>Implementato una soluzione economicamente vantaggiosa utilizzando <strong>Python</strong>.</li>
+                                <li>Acquisito esperienza pratica in sistemi cloud, cybersecurity, database e automazione dei flussi di lavoro.</li>
+                                <li>Sviluppato capacità di problem-solving, auto-gestione e lavoro di squadra in un ambiente internazionale.</li>
+                            </ul>
+
+                            <p>Questo tirocinio ha rafforzato sia le mie competenze tecniche che la mia fiducia nel lavorare in team.</p>
+                        </div>
+                    </div>
+
+
+                <p style="padding-bottom: 95.0vh; font-size: 1.25vh;"></p>
+
             </div>
 
+            <div id="LeftPanel">
+    
+                <h1>Mirko Crasan</h1>
+                    <h2 data-lang="en" class="active">Cloud & Cybersecurity Student</h2>
+                    <h2 data-lang="it"> Studente di Cloud & Cybersecurity</h2>
+                    <p class="location-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <span data-lang="en" class="active">Italy</span>
+                        <span data-lang="it">Italia</span>
+                    </p>
+                
+                <nav class="NavContainer">
 
-            <p style="padding-bottom: 95.0vh; font-size: 1.25vh;"></p>
+                    <div class="NavItem" DataSection="Section1">
+                        <div class="NavItemDot"></div>
+                        <span class="NavItemText">
+                            <span data-lang="en" class="active">About</span>
+                            <span data-lang="it">Chi sono</span>
+                        </span>
+                    </div>
 
-        </div>
-
-        <div id="LeftPanel">
-
-            <h1>Mirko Crasan</h1>
-            <h2 data-lang="en" class="active">Cloud & Cybersecurity Student</h2>
-            <h2 data-lang="it"> Studente di Cloud & Cybersecurity</h2>
-            <p class="location-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                </svg>
-                <span data-lang="en" class="active">Italy</span>
-                <span data-lang="it">Italia</span>
-            </p>
-
-            <nav class="NavContainer">
-
-                <div class="NavItem" DataSection="Section1">
-                    <div class="NavItemDot"></div>
-                    <span class="NavItemText">
-                        <span data-lang="en" class="active">About</span>
-                        <span data-lang="it">Chi sono</span>
-                    </span>
-                </div>
-
-                <div class="NavItem" DataSection="Section2">
-                    <div class="NavItemDot"></div>
-                    <span class="NavItemText">
-                        <span data-lang="en" class="active">Projects</span>
-                        <span data-lang="it">Progetti</span>
-                    </span>
-                </div>
+                    <div class="NavItem" DataSection="Section2">
+                        <div class="NavItemDot"></div>
+                        <span class="NavItemText">
+                            <span data-lang="en" class="active">Projects</span>
+                            <span data-lang="it">Progetti</span>
+                        </span>
+                    </div>
 
                 <div class="NavItem" DataSection="Section3">
                     <div class="NavItemDot"></div>
@@ -195,31 +163,31 @@
                         <span data-lang="en" class="active">Experience</span>
                         <span data-lang="it">Esperienza</span>
                     </span>
+                </div>  
+
+                </nav>
+
+                <div id="SocialsContainer">
+                    
+                    <a href="https://github.com/mirkocph" target="_blank" title="Github">
+                        <img src="Images/GithubIcon.png" alt="Github" style="width:30px;height:30px;">
+                    </a>
+
+                    <a href="mailto:mirkocrasan03@gmail.com" target="_blank" title="Email">
+                        <img src="Images/EmailIcon.png" alt="Email" style="width:30px;height:30px;">
+                    </a>
+
                 </div>
-
-            </nav>
-
-            <div id="SocialsContainer">
-
-                <a href="https://github.com/mirkocph" target="_blank" title="Github">
-                    <img src="Images/GithubIcon.png" alt="Github" style="width:30px;height:30px;">
-                </a>
-
-                <a href="mailto:mirkocrasan03@gmail.com" target="_blank" title="Email">
-                    <img src="Images/EmailIcon.png" alt="Email" style="width:30px;height:30px;">
-                </a>
-
+            
             </div>
 
         </div>
 
-    </div>
 
+        <script src="Scripts/ModelFiles.js"></script>
+        <script src="Scripts/RenderingFunctions.js"></script>
+        <script src="Scripts/Main.js"></script>
 
-    <script src="Scripts/ModelFiles.js"></script>
-    <script src="Scripts/RenderingFunctions.js"></script>
-    <script src="Scripts/Main.js"></script>
-
-</body>
+    </body>
 
 </html>
