@@ -132,6 +132,100 @@ m {
 }
 */
 
+ /* Language Switcher Styles */
+  /* Glassmorphism Language Switcher */
+    .language-switcher {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 6px;
+        border-radius: 50px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        display: flex;
+        gap: 6px;
+        align-items: center;
+    }
+
+    .lang-btn {
+        padding: 10px 20px;
+        border: none;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.7);
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .lang-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 50px;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .lang-btn:hover::before {
+        opacity: 1;
+    }
+
+    .lang-btn:hover {
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .lang-btn.active {
+        background: rgba(255, 255, 255, 0.25);
+        color: white;
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    }
+
+    .lang-btn.active::before {
+        opacity: 0;
+    }
+
+    /* Hide inactive language content */
+    [data-lang] {
+        display: none;
+    }
+
+    [data-lang].active {
+        display: block;
+    }
+
+    /* Per elementi inline come span */
+    span[data-lang].active {
+        display: inline;
+    }
+
+    /* Icona location inline */
+    .location-icon {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .location-icon svg {
+        width: 18px;
+        height: 18px;
+        vertical-align: middle;
+        opacity: 0.8;
+    }
+
 .NavContainer {
     position: absolute;
     top: 50%;
