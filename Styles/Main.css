@@ -315,3 +315,78 @@ m {
     border-bottom: 1px solid gray;
     margin: 0 0.75vh 0.75em 0.75vh;
 }
+
+@media (max-width: 768px) {
+
+    body {
+        overflow: auto;
+    }
+
+    #MainDiv {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: auto;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    #LeftPanel {
+        width: 100%;
+        left: 0;
+        position: relative;
+        margin: 0;
+        padding: 8vw 8vw 4vw 8vw;
+        box-sizing: border-box;
+    }
+
+    .NavContainer {
+        display: none; /* la nav laterale non ha senso su mobile */
+    }
+
+    #SocialsContainer {
+        position: relative;
+        top: auto;
+        transform: none;
+        margin-top: 4vw;
+        padding-bottom: 6vw;
+    }
+
+    #RightPanel {
+        width: 100%;
+        position: relative;
+        padding: 0 8vw 10vw 8vw;
+        box-sizing: border-box;
+        overflow: visible;
+    }
+
+    h1 {
+        font-size: 8vw;
+    }
+
+    h2 {
+        font-size: 4vw;
+    }
+
+    p {
+        font-size: 3.5vw;
+        line-height: 5.5vw;
+    }
+
+    .NavItemText {
+        font-size: 3.5vw;
+    }
+
+    .Project p {
+        font-size: 3vw;
+    }
+
+    ul li {
+        font-size: 3.5vw;
+        line-height: 5.5vw;
+    }
+
+    /* spacer finale eccessivo, lo azzeriamo */
+    #RightPanel > p[style*="padding-bottom"] {
+        padding-bottom: 10vw !important;
+    }
+}
