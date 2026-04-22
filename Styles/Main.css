@@ -389,4 +389,13 @@ m {
     #RightPanel > p[style*="padding-bottom"] {
         padding-bottom: 10vw !important;
     }
+
+    canvas {
+        display: none; /* nasconde il canvas 3D su mobile */
+    }
+
+    #MouseGlow,
+    #MouseGlowBlur {
+        display: none; /* nasconde anche l'effetto glow del mouse, inutile su touch */
+    }
 }
