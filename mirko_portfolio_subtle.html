@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mirko Crasan</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0a0e14;--bg2:#0d1117;--bg3:#131920;--panel:#141b24;
+    --border:#1e2d3d;--border2:#243447;
+    --green:#00ff88;--green-dim:rgba(0,255,136,0.12);--green-dim2:rgba(0,255,136,0.06);
+    --blue:#4fc3f7;--amber:#ffa726;
+    --text:#cdd6e0;--text2:#7a9ab5;--text3:#4a6580;
+    --mono:'JetBrains Mono',monospace;--sans:'Space Grotesk',sans-serif;
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;line-height:1.6}
+  body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:999}
+
+  .sidebar{position:fixed;left:0;top:0;bottom:0;width:260px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;padding:2rem 0}
+  .logo-area{padding:0 1.5rem 2rem;border-bottom:1px solid var(--border)}
+  .logo-prompt{font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:4px}
+  .logo-name{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--green);letter-spacing:-0.5px;display:flex;align-items:center;gap:6px}
+  .cursor{display:inline-block;width:10px;height:18px;background:var(--green);animation:blink 1s step-end infinite}
+  @keyframes blink{50%{opacity:0}}
+  .logo-title{font-family:var(--sans);font-size:12px;color:var(--text2);margin-top:4px;font-weight:300}
+  .nav{padding:1.5rem 0;flex:1}
+  .nav-section{font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:2px;padding:0 1.5rem;margin-bottom:8px;margin-top:1.5rem}
+  .nav-section:first-child{margin-top:0}
+  .nav-link{display:flex;align-items:center;gap:10px;padding:8px 1.5rem;font-family:var(--mono);font-size:13px;color:var(--text2);text-decoration:none;transition:all 0.15s;border-left:2px solid transparent;cursor:pointer;user-select:none}
+  .nav-link:hover,.nav-link.active{color:var(--green);border-left-color:var(--green);background:var(--green-dim2)}
+  .nav-dot{width:6px;height:6px;border-radius:50%;background:var(--text3);flex-shrink:0;transition:background 0.15s}
+  .nav-link:hover .nav-dot,.nav-link.active .nav-dot{background:var(--green)}
+  .sidebar-footer{padding:1.5rem;border-top:1px solid var(--border)}
+  .status-line{font-family:var(--mono);font-size:11px;color:var(--text3);display:flex;align-items:center;gap:6px;margin-bottom:6px}
+  .status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+  .social-links{display:flex;gap:12px;margin-top:12px}
+  .social-links a{font-family:var(--mono);font-size:11px;color:var(--text3);text-decoration:none;transition:color 0.15s}
+  .social-links a:hover{color:var(--green)}
+
+  .main{margin-left:260px;min-height:100vh}
+  .topbar{position:sticky;top:0;background:rgba(10,14,20,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:0.75rem 3rem;display:flex;align-items:center;gap:8px;z-index:50}
+  .topbar-cmd{font-family:var(--mono);font-size:12px;color:var(--text3)}
+  .topbar-path{font-family:var(--mono);font-size:12px;color:var(--green)}
+  .lang-toggle{margin-left:auto;display:flex;background:var(--bg3);border:1px solid var(--border);border-radius:4px;overflow:hidden}
+  .lang-btn{font-family:var(--mono);font-size:11px;padding:4px 12px;cursor:pointer;color:var(--text3);background:none;border:none;transition:all 0.15s;letter-spacing:1px}
+  .lang-btn.active{background:var(--green);color:#000;font-weight:700}
+
+  /* HERO */
+  .hero{padding:4rem 3rem 3rem;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+  #hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:1}
+  .hero-content{position:relative;z-index:1}
+  .hero-eyebrow{font-family:var(--mono);font-size:12px;color:var(--green);letter-spacing:3px;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:10px}
+  .hero-eyebrow::before{content:'';display:block;width:30px;height:1px;background:var(--green)}
+  h1.hero-name{font-family:var(--sans);font-size:clamp(2.5rem,5vw,4rem);font-weight:600;color:#fff;line-height:1.1;margin-bottom:0.5rem;letter-spacing:-1px}
+  h1.hero-name span{color:var(--green)}
+  .hero-role{font-family:var(--mono);font-size:16px;color:var(--text2);margin-bottom:1.5rem;display:flex;align-items:center;gap:8px}
+  .hero-role::before{content:'>';color:var(--green);font-weight:700}
+  .hero-bio{max-width:620px;font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:2rem}
+  .hero-tags{display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:var(--mono);font-size:11px;padding:4px 12px;border:1px solid var(--border2);border-radius:2px;color:var(--text2);background:var(--bg3);transition:all 0.15s}
+  .tag:hover{border-color:var(--green);color:var(--green);background:var(--green-dim2)}
+
+  .section{padding:3rem;border-bottom:1px solid var(--border)}
+  .section-header{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
+  .section-num{font-family:var(--mono);font-size:11px;color:var(--green);opacity:0.6}
+  h2.section-title{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--text);text-transform:uppercase;letter-spacing:3px}
+  .section-line{flex:1;height:1px;background:var(--border)}
+
+  .timeline{display:flex;flex-direction:column;gap:1.5rem}
+  .timeline-item{display:grid;grid-template-columns:200px 1fr;gap:2rem}
+  .timeline-meta{text-align:right;padding-top:2px}
+  .timeline-company{font-family:var(--mono);font-size:13px;color:var(--green);font-weight:500;display:block;margin-bottom:4px}
+  .timeline-date{font-family:var(--mono);font-size:11px;color:var(--text3)}
+  .timeline-loc{font-family:var(--mono);font-size:11px;color:var(--text3);margin-top:2px}
+  .timeline-body{border-left:1px solid var(--border2);padding-left:2rem;position:relative}
+  .timeline-body::before{content:'';position:absolute;left:-4px;top:6px;width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px rgba(0,255,136,0.4)}
+  .timeline-role{font-size:15px;font-weight:500;color:#fff;margin-bottom:0.75rem}
+  .timeline-desc{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:1rem}
+  .bullet-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+  .bullet-list li{font-family:var(--mono);font-size:12px;color:var(--text2);display:flex;gap:8px;line-height:1.5}
+  .bullet-list li::before{content:'→';color:var(--green);flex-shrink:0;font-size:11px;margin-top:1px}
+
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+  .project-card{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:1.5rem;transition:all 0.2s;position:relative;overflow:hidden;text-decoration:none;display:block}
+  .project-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--green-dim2) 0%,transparent 60%);opacity:0;transition:opacity 0.2s}
+  .project-card:hover{border-color:var(--green);transform:translateY(-2px)}
+  .project-card:hover::before{opacity:1}
+  .project-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem}
+  .project-icon{font-size:20px;color:var(--green);opacity:0.7}
+  .project-year{font-family:var(--mono);font-size:10px;color:var(--text3);padding:2px 8px;border:1px solid var(--border);border-radius:2px}
+  .project-name{font-family:var(--sans);font-size:14px;font-weight:500;color:#fff;margin-bottom:0.5rem;line-height:1.3}
+  .project-desc{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:1rem}
+  .project-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .project-tag{font-family:var(--mono);font-size:10px;padding:2px 8px;background:var(--bg3);border:1px solid var(--border);border-radius:2px;color:var(--text3)}
+  .project-link{font-family:var(--mono);font-size:11px;color:var(--green);margin-top:1rem;opacity:0;transition:opacity 0.15s;display:block}
+  .project-card:hover .project-link{opacity:1}
+
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:560px}
+  .contact-item{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:1.25rem;display:flex;align-items:center;gap:12px;text-decoration:none;transition:all 0.15s}
+  .contact-item:hover{border-color:var(--green);background:var(--green-dim2)}
+  .contact-icon{font-size:18px;color:var(--green);width:32px;text-align:center;flex-shrink:0}
+  .contact-label{font-family:var(--mono);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:2px}
+  .contact-value{font-size:13px;color:var(--text)}
+
+  .terminal{background:var(--bg3);border:1px solid var(--border);border-radius:4px;overflow:hidden;max-width:600px;margin-bottom:2rem}
+  .terminal-bar{background:var(--border);padding:8px 12px;display:flex;align-items:center;gap:6px}
+  .term-dot{width:10px;height:10px;border-radius:50%}
+  .term-dot.r{background:#ff5f57}.term-dot.y{background:#ffbd2e}.term-dot.g{background:var(--green)}
+  .term-title{font-family:var(--mono);font-size:11px;color:var(--text3);margin-left:auto;margin-right:auto}
+  .terminal-body{padding:1rem 1.25rem;font-family:var(--mono);font-size:12px;line-height:1.9;min-height:160px}
+  .term-line{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
+  .term-prompt{color:var(--green);white-space:nowrap;flex-shrink:0}
+  .term-cmd{color:var(--text)}
+  .term-out{color:var(--text2)}
+  .term-key{color:var(--blue)}
+  .term-val{color:var(--amber)}
+  .term-ok{color:var(--green)}
+  .term-dim{color:var(--text3)}
+
+  [data-lang]{display:none}
+  [data-lang].visible{display:block}
+
+  ::-webkit-scrollbar{width:4px}
+  ::-webkit-scrollbar-track{background:var(--bg2)}
+  ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+  @media(max-width:900px){
+    .sidebar{display:none}.main{margin-left:0}
+    .timeline-item{grid-template-columns:1fr}.timeline-meta{text-align:left}
+    .contact-grid{grid-template-columns:1fr}
+    .hero{padding:2rem 1.5rem}.section{padding:2rem 1.5rem}.topbar{padding:0.75rem 1.5rem}
+  }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="logo-area">
+    <div class="logo-prompt">// portfolio</div>
+    <div class="logo-name">mirko_crasan<span class="cursor"></span></div>
+    <div class="logo-title">
+      <span data-lang="en" class="visible">IT Professional · Network & Cloud</span>
+      <span data-lang="it">Professionista IT · Network & Cloud</span>
+    </div>
+  </div>
+  <nav class="nav">
+    <div class="nav-section"><span data-lang="en" class="visible">// navigate</span><span data-lang="it">// naviga</span></div>
+    <a class="nav-link active" onclick="scrollToSection('hero',this)"><span class="nav-dot"></span>~/ home</a>
+    <a class="nav-link" onclick="scrollToSection('experience',this)"><span class="nav-dot"></span><span data-lang="en" class="visible">~/ experience</span><span data-lang="it">~/ esperienza</span></a>
+    <a class="nav-link" onclick="scrollToSection('projects',this)"><span class="nav-dot"></span><span data-lang="en" class="visible">~/ projects</span><span data-lang="it">~/ progetti</span></a>
+    <a class="nav-link" onclick="scrollToSection('contact',this)"><span class="nav-dot"></span><span data-lang="en" class="visible">~/ contact</span><span data-lang="it">~/ contatti</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="status-line"><span class="status-dot"></span><span style="font-family:var(--mono);font-size:11px;color:var(--text3)"><span data-lang="en" class="visible">status: available</span><span data-lang="it">stato: disponibile</span></span></div>
+    <div class="status-line" style="margin-bottom:0"><span style="font-family:var(--mono);font-size:11px;color:var(--text3)"><span data-lang="en" class="visible">loc: Italy</span><span data-lang="it">posizione: Italia</span></span></div>
+    <div class="social-links">
+      <a href="https://github.com/mirkocph" target="_blank">github</a>
+      <a href="https://linkedin.com/in/mirkocrasan" target="_blank">linkedin</a>
+      <a href="mailto:mirkocrasan03@gmail.com">email</a>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <span class="topbar-cmd">$</span>
+    <span class="topbar-path" id="topbar-path">~/home</span>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('it')">IT</button>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-content">
+      <div class="hero-eyebrow">IT Professional</div>
+      <h1 class="hero-name">Mirko <span>Crasan</span></h1>
+      <div class="hero-role">
+        <span data-lang="en" class="visible">Network · Cloud · Security</span>
+        <span data-lang="it">Network · Cloud · Sicurezza</span>
+      </div>
+      <div class="hero-bio">
+        <span data-lang="en" class="visible">IT specialist with hands-on experience in networking, security, and IT operations. Graduated in Cloud & Cybersecurity from ITS Incom. Focused on designing secure, stable, and scalable infrastructures.</span>
+        <span data-lang="it">Specialista IT con esperienza pratica in reti, sicurezza e operazioni IT. Diplomato in Cloud & Cybersecurity presso ITS Incom. Orientato alla progettazione di infrastrutture sicure, stabili e scalabili.</span>
+      </div>
+      <div class="hero-tags">
+        <span class="tag">Networking</span>
+        <span class="tag">Microsoft Azure</span>
+        <span class="tag">Active Directory</span>
+        <span class="tag">Virtualization</span>
+        <span class="tag">Cybersecurity</span>
+        <span class="tag">Linux</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title"><span data-lang="en" class="visible">Experience</span><span data-lang="it">Esperienza</span></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-company">Argoclima S.p.A</span>
+          <div class="timeline-date"><span data-lang="en" class="visible">Jan 2026 — May 2026</span><span data-lang="it">Gen 2026 — Mag 2026</span></div>
+          <div class="timeline-loc"><span data-lang="en" class="visible">Gallarate, Italy</span><span data-lang="it">Gallarate, Italia</span></div>
+        </div>
+        <div class="timeline-body">
+          <div class="timeline-role">System Administrator</div>
+          <div class="timeline-desc"><span data-lang="en" class="visible">Supported IT modernization and infrastructure consolidation during a period of corporate growth in a leading Italian HVAC company.</span><span data-lang="it">Ho supportato la modernizzazione IT e il consolidamento dell'infrastruttura durante un periodo di crescita aziendale presso un'azienda leader italiana nei sistemi HVAC.</span></div>
+          <ul class="bullet-list">
+            <li><span data-lang="en" class="visible">AD domain consolidation post-merger — migrated users, decommissioned DC</span><span data-lang="it">Consolidamento domini AD post-fusione — migrazione utenti, dismissione DC</span></li>
+            <li><span data-lang="en" class="visible">Managed AD users, GPOs, ACLs for file servers</span><span data-lang="it">Gestione utenti AD, GPO, ACL per i file server</span></li>
+            <li><span data-lang="en" class="visible">Tier 1-2 technical support — hardware, software, connectivity</span><span data-lang="it">Supporto tecnico Tier 1-2 — hardware, software, connettività</span></li>
+            <li><span data-lang="en" class="visible">Server migration to external managed datacenter</span><span data-lang="it">Migrazione server on-premises verso datacenter esterno gestito</span></li>
+            <li><span data-lang="en" class="visible">Standardized onboarding — workstation setup and hardware provisioning</span><span data-lang="it">Standardizzazione onboarding — preparazione workstation e provisioning hardware</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-company">Health Tech Hub</span>
+          <div class="timeline-date"><span data-lang="en" class="visible">Jun 2025 — Aug 2025</span><span data-lang="it">Giu 2025 — Ago 2025</span></div>
+          <div class="timeline-loc"><span data-lang="en" class="visible">Copenhagen, Denmark</span><span data-lang="it">Copenaghen, Danimarca</span></div>
+        </div>
+        <div class="timeline-body">
+          <div class="timeline-role"><span data-lang="en" class="visible">Workflow Automation Intern</span><span data-lang="it">Tirocinio — Automazione dei Flussi</span></div>
+          <div class="timeline-desc"><span data-lang="en" class="visible">Redesigned data storage systems for a small startup in Copenhagen, working independently in an international environment.</span><span data-lang="it">Riprogettato il sistema di archiviazione dati per una startup a Copenaghen, lavorando in autonomia in un ambiente internazionale.</span></div>
+          <ul class="bullet-list">
+            <li><span data-lang="en" class="visible">Automated data workflows using Zapier, Airtable, HubSpot</span><span data-lang="it">Automazione flussi dati con Zapier, Airtable, HubSpot</span></li>
+            <li><span data-lang="en" class="visible">Implemented cost-effective solution in Python</span><span data-lang="it">Soluzione economica implementata in Python</span></li>
+            <li><span data-lang="en" class="visible">Hands-on with cloud systems, databases, cybersecurity basics</span><span data-lang="it">Esperienza pratica con cloud, database e cybersecurity</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title"><span data-lang="en" class="visible">Projects</span><span data-lang="it">Progetti</span></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid">
+      <a class="project-card" href="https://github.com/mirkocph/Hybrid-Cloud-Infrastructure-Project" target="_blank">
+        <div class="project-header"><div class="project-icon">⬡</div><span class="project-year">2025</span></div>
+        <div class="project-name">Hybrid Cloud Infrastructure</div>
+        <div class="project-desc"><span data-lang="en" class="visible">On-premises + Azure cloud hybrid architecture design and deployment.</span><span data-lang="it">Progettazione e deploy di architettura ibrida on-premises + Azure cloud.</span></div>
+        <div class="project-tags"><span class="project-tag">Azure</span><span class="project-tag">Networking</span><span class="project-tag">VPN</span><span class="project-tag">Hyper-V</span></div>
+        <div class="project-link">↗ github.com</div>
+      </a>
+      <a class="project-card" href="https://github.com/mirkocph/CAPTCHA-Reverse-Shell" target="_blank">
+        <div class="project-header"><div class="project-icon">⬡</div><span class="project-year">2025</span></div>
+        <div class="project-name">CAPTCHA Reverse Shell</div>
+        <div class="project-desc"><span data-lang="en" class="visible">Social engineering exploit using fake CAPTCHA to deploy a reverse shell.</span><span data-lang="it">Exploit di social engineering tramite CAPTCHA falso per eseguire una reverse shell.</span></div>
+        <div class="project-tags"><span class="project-tag">Security</span><span class="project-tag">Pentesting</span><span class="project-tag">Python</span></div>
+        <div class="project-link">↗ github.com</div>
+      </a>
+      <a class="project-card" href="https://github.com/mirkocph/Terraform-Aws-Project" target="_blank">
+        <div class="project-header"><div class="project-icon">⬡</div><span class="project-year">2026</span></div>
+        <div class="project-name">Cloud IaC — AWS + Terraform</div>
+        <div class="project-desc"><span data-lang="en" class="visible">Infrastructure as Code project provisioning AWS cloud resources with Terraform.</span><span data-lang="it">Progetto IaC per provisioning di risorse AWS tramite Terraform.</span></div>
+        <div class="project-tags"><span class="project-tag">AWS</span><span class="project-tag">Terraform</span><span class="project-tag">IaC</span><span class="project-tag">DevOps</span></div>
+        <div class="project-link">↗ github.com</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title"><span data-lang="en" class="visible">Contact</span><span data-lang="it">Contatti</span></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+        <span class="term-title">bash — mirko@portfolio</span>
+      </div>
+      <div class="terminal-body" id="term-body"></div>
+    </div>
+    <div class="contact-grid">
+      <a class="contact-item" href="mailto:mirkocrasan03@gmail.com">
+        <div class="contact-icon">✉</div>
+        <div><span class="contact-label">Email</span><div class="contact-value">mirkocrasan03@gmail.com</div></div>
+      </a>
+      <a class="contact-item" href="https://github.com/mirkocph" target="_blank">
+        <div class="contact-icon">⌥</div>
+        <div><span class="contact-label">GitHub</span><div class="contact-value">github.com/mirkocph</div></div>
+      </a>
+      <a class="contact-item" href="https://linkedin.com/in/mirkocrasan" target="_blank">
+        <div class="contact-icon">◈</div>
+        <div><span class="contact-label">LinkedIn</span><div class="contact-value">mirkocrasan</div></div>
+      </a>
+      <div class="contact-item" style="cursor:default">
+        <div class="contact-icon">◉</div>
+        <div>
+          <span class="contact-label"><span data-lang="en" class="visible">Location</span><span data-lang="it">Posizione</span></span>
+          <div class="contact-value">Italy</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+function setLang(lang){
+  document.querySelectorAll('[data-lang]').forEach(e=>e.classList.toggle('visible',e.dataset.lang===lang));
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent===lang.toUpperCase()));
+}
+function scrollToSection(id,el){
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});
+  const p={hero:'~/home',experience:'~/experience',projects:'~/projects',contact:'~/contact'};
+  document.getElementById('topbar-path').textContent=p[id]||'~/home';
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  if(el)el.classList.add('active');
+}
+const secs=['hero','experience','projects','contact'];
+const navLinks=document.querySelectorAll('.nav-link');
+const pathMap={hero:'~/home',experience:'~/experience',projects:'~/projects',contact:'~/contact'};
+secs.forEach(id=>{
+  const el=document.getElementById(id);
+  if(!el)return;
+  new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const i=secs.indexOf(e.target.id);
+        navLinks.forEach((l,j)=>l.classList.toggle('active',i===j));
+        document.getElementById('topbar-path').textContent=pathMap[e.target.id]||'~/home';
+      }
+    });
+  },{threshold:0.3}).observe(el);
+});
+
+/* ── HERO CANVAS: subtle node-mesh background ── */
+(function(){
+  const canvas=document.getElementById('hero-canvas');
+  const hero=document.getElementById('hero');
+  if(!canvas||!hero)return;
+  const ctx=canvas.getContext('2d');
+  const DPR=window.devicePixelRatio||1;
+
+  function resize(){
+    canvas.width=hero.offsetWidth*DPR;
+    canvas.height=hero.offsetHeight*DPR;
+    canvas.style.width=hero.offsetWidth+'px';
+    canvas.style.height=hero.offsetHeight+'px';
+    ctx.scale(DPR,DPR);
+  }
+  resize();
+  window.addEventListener('resize',()=>{ctx.setTransform(1,0,0,1,0,0);resize();});
+
+  const W=()=>hero.offsetWidth, H=()=>hero.offsetHeight;
+  const N=18;
+  const nodes=Array.from({length:N},()=>({
+    x:Math.random()*W(), y:Math.random()*H(),
+    vx:(Math.random()-.5)*0.18, vy:(Math.random()-.5)*0.18,
+    r:Math.random()*1.5+1,
+    pulse:Math.random()*Math.PI*2,
+    pulseSpeed:0.012+Math.random()*0.008
+  }));
+
+  const CONN_DIST=160;
+
+  function draw(){
+    ctx.clearRect(0,0,W(),H());
+    const t=performance.now()/1000;
+
+    for(let i=0;i<N;i++){
+      for(let j=i+1;j<N;j++){
+        const dx=nodes[i].x-nodes[j].x, dy=nodes[i].y-nodes[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<CONN_DIST){
+          const a=0.07*(1-d/CONN_DIST);
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x,nodes[i].y);
+          ctx.lineTo(nodes[j].x,nodes[j].y);
+          ctx.strokeStyle=`rgba(0,255,136,${a})`;
+          ctx.lineWidth=0.6;
+          ctx.stroke();
+        }
+      }
+    }
+
+    nodes.forEach(n=>{
+      n.pulse+=n.pulseSpeed;
+      const alpha=0.2+0.15*Math.sin(n.pulse);
+      ctx.beginPath();
+      ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(0,255,136,${alpha})`;
+      ctx.fill();
+      n.x+=n.vx; n.y+=n.vy;
+      if(n.x<0||n.x>W())n.vx*=-1;
+      if(n.y<0||n.y>H())n.vy*=-1;
+    });
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── TERMINAL SEQUENCE ── */
+const sequence=[
+  {type:'cmd',prompt:'mirko@portfolio:~$',cmd:'whoami'},
+  {type:'out',lines:['<span class="term-key">name</span>     <span class="term-val">Mirko Crasan</span>','<span class="term-key">role</span>     <span class="term-val">IT Professional · Network &amp; Cloud</span>','<span class="term-key">location</span> <span class="term-val">Italy</span>']},
+  {type:'cmd',prompt:'mirko@portfolio:~$',cmd:'ss -tulpn'},
+  {type:'out',lines:['<span class="term-dim">Netid  State   Local Address:Port   Process</span>','<span class="term-key">tcp</span>    LISTEN  <span class="term-val">0.0.0.0:22</span>          sshd','<span class="term-key">tcp</span>    LISTEN  <span class="term-val">0.0.0.0:443</span>         nginx','<span class="term-key">tcp</span>    LISTEN  <span class="term-val">127.0.0.1:5432</span>      postgres']},
+  {type:'cmd',prompt:'mirko@portfolio:~$',cmd:'curl -sI https://linkedin.com/in/mirkocrasan | head -3'},
+  {type:'out',lines:['<span class="term-key">HTTP/2</span> <span class="term-ok">200</span>','<span class="term-key">content-type</span>  <span class="term-val">text/html</span>','<span class="term-key">x-profile</span>    <span class="term-val">mirkocrasan — reachable</span>']},
+  {type:'cmd',prompt:'mirko@portfolio:~$',cmd:'nmap -T4 -F --open mirkocrasan.dev'},
+  {type:'out',lines:['<span class="term-dim">Starting Nmap scan...</span>','<span class="term-key">22/tcp</span>   <span class="term-ok">open</span>  ssh','<span class="term-key">80/tcp</span>   <span class="term-ok">open</span>  http','<span class="term-key">443/tcp</span>  <span class="term-ok">open</span>  https','<span class="term-dim">1 host up — scanned in 1.24s</span>']},
+  {type:'cmd',prompt:'mirko@portfolio:~$',cmd:''},
+];
+const body=document.getElementById('term-body');
+let si=0;
+function rLine(html){const d=document.createElement('div');d.className='term-line';d.innerHTML=html;body.appendChild(d);}
+function typeCmd(step,done){
+  const row=document.createElement('div');row.className='term-line';
+  row.innerHTML=`<span class="term-prompt">${step.prompt}</span><span class="term-cmd" id="tc"></span>`;
+  body.appendChild(row);
+  let i=0;const iv=setInterval(()=>{
+    document.getElementById('tc').textContent=step.cmd.slice(0,++i);
+    if(i>=step.cmd.length){clearInterval(iv);setTimeout(done,180);}
+  },45);
+}
+function showOut(lines,done){
+  let i=0;function next(){if(i>=lines.length){setTimeout(done,400);return;}rLine(`<span class="term-out">${lines[i++]}</span>`);setTimeout(next,90);}next();
+}
+function runSeq(){
+  if(si>=sequence.length)return;
+  const step=sequence[si++];
+  if(step.type==='cmd'){
+    if(!step.cmd){rLine(`<span class="term-prompt">${step.prompt}</span><span class="term-cmd" style="border-right:2px solid var(--green);animation:blink 1s step-end infinite">&nbsp;</span>`);return;}
+    typeCmd(step,runSeq);
+  }else showOut(step.lines,runSeq);
+}
+setTimeout(runSeq,800);
+</script>
+</body>
+</html>
